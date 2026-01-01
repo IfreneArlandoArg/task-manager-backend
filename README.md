@@ -96,11 +96,11 @@ A secure RESTful API backend for a task management application built with modern
 
 ## Environment Variables
 
-Create a `.env` file with:
+Create a `.env` (Example) file with:
 ```
 DATABASE_URL=postgresql://user:password@localhost:5432/taskmanager
 JWT_SECRET=your-secret-key-here
-PORT=3000
+PORT=8080
 ```
 
 ## Setup & Installation
@@ -115,26 +115,10 @@ npx prisma migrate dev
 # Start development server (with auto-reload)
 npm start
 
-# Server runs on http://localhost:3000
+# Server runs on http://localhost:8080 (Example)
 ```
 
-## Security Considerations
 
-✅ **Implemented**:
-- Password hashing with bcrypt
-- JWT-based stateless authentication
-- CORS protection
-- Environment variable separation for secrets
-- Input validation via Prisma schema
-
-⚠️ **Recommended for Production**:
-- Add input validation/sanitization (joi, zod)
-- Implement rate limiting
-- Add HTTPS/TLS encryption
-- Set strong JWT_SECRET (use 32+ character random string)
-- Add error handling and logging
-- Implement refresh tokens with expiration
-- Add request logging and monitoring
 
 ## Author
 
