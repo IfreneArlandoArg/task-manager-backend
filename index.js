@@ -53,4 +53,27 @@ app.post("/tasks", auth, async (req, res) => {
   res.json(task);
 });
 
+app.put("/tasks/:id", auth, async (req, res) => {
+  const id = Number(req.params.id);
+  const { status, title } = req.body;
+
+  const task = await prisma.task.findUnique({ where: { id } });
+  if (!task) return res.sendStatus(404);
+  if (task.userId !== req.user.id) return res.sendStatus(403);
+
+  const allowed = ["Todo", "In Progress", "Done"];
+  if (status && !allowed.includes(status))
+    return res.status(400).json({ error: "Invalid status" });
+
+  if(task.status == status)
+    return res.status(200).json({ message: "Task status is already current", task });
+    
+  const data = {};
+  if (status) data.status = status;
+  if (title) data.title = title;
+
+  const updated = await prisma.task.update({ where: { id }, data });
+  res.json(updated);
+});
+
 app.listen(PORT, () => console.log(`Server running http://localhost:${PORT}`));
